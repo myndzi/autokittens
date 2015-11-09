@@ -609,12 +609,9 @@ autoTrade = function () {
     }
   } else {
     race = gamePage.diplomacy.get(autoOptions.tradeOptions.tradePartner);
-    if (!race.unlocked) {
-      autoOptions.tradeOptions.tradePartner = "";
-    }
   }
   if (!race.unlocked) {
-    saveAutoOptions();
+    // don't clear saved race, since leviathans go in and out
     return;
   }
   var gold = gamePage.resPool.get('gold');
@@ -664,10 +661,8 @@ autoFestival = function () {
     return;
 
   var origTab = gamePage.activeTabId;
-  if (!(gamePage.villageTab.festivalBtn && gamePage.villageTab.festivalBtn.onClick && gamePage.villageTab.festivalBtn.visible))
-  {
-    gamePage.activeTabId = gamePage.villageTab.tabId; gamePage.render();
-  }
+  gamePage.activeTabId = gamePage.villageTab.tabId; gamePage.render();
+
   if (gamePage.villageTab.festivalBtn.hasResources()) {
     gamePage.villageTab.festivalBtn.onClick();
   }
