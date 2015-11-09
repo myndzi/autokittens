@@ -660,14 +660,15 @@ autoFestival = function () {
   if (gamePage.calendar.festivalDays || !autoOptions.autoFestival || !gamePage.science.get('drama').researched)
     return;
 
-  var origTab = gamePage.activeTabId;
-  gamePage.activeTabId = gamePage.villageTab.tabId; gamePage.render();
-
   if (gamePage.villageTab.festivalBtn.hasResources()) {
+    var origTab = gamePage.activeTabId;
+    gamePage.activeTabId = gamePage.villageTab.tabId; gamePage.render();
+
     gamePage.villageTab.festivalBtn.onClick();
-  }
-  if (origTab != gamePage.activeTabId) {
-    gamePage.activeTabId = origTab; gamePage.render();
+
+    if (origTab != gamePage.activeTabId) {
+      gamePage.activeTabId = origTab; gamePage.render();
+    }
   }
 }
 
