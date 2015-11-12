@@ -632,9 +632,7 @@ autoTrade = function () {
 
   if (autoOptions.tradeOptions['trade' + season]) {
     var origTab = gamePage.activeTabId;
-    if (gamePage.diplomacyTab.racePanels.length == 0) {
-      gamePage.activeTabId = 'Trade'; gamePage.render();
-    }
+    gamePage.activeTabId = 'Trade'; gamePage.render();
     for (var i = 0; i < gamePage.diplomacyTab.racePanels.length; i++) {
       if (gamePage.diplomacyTab.racePanels[i].name == race.title) {
         if (!gamePage.diplomacyTab.racePanels[i].tradeBtn.enabled) {
