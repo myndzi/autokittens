@@ -630,25 +630,42 @@ autoTrade = function () {
     gamePage.msg = function() {};
   }
 
-  if (autoOptions.tradeOptions['trade' + season]) {
-    var origTab = gamePage.activeTabId;
-    gamePage.activeTabId = 'Trade'; gamePage.render();
+  function getTabIdx(race) {
     for (var i = 0; i < gamePage.diplomacyTab.racePanels.length; i++) {
-      if (gamePage.diplomacyTab.racePanels[i].name == race.title) {
-        if (!gamePage.diplomacyTab.racePanels[i].tradeBtn.enabled) {
-          gamePage.activeTabId = 'Trade'; gamePage.render();
-        }
-        if (autoOptions.tradeOptions.tradeCount <= 1)
-          gamePage.diplomacyTab.racePanels[i].tradeBtn.onClick();
-        else
-          gamePage.diplomacyTab.racePanels[i].tradeBtn.tradeMultiple(autoOptions.tradeOptions.tradeCount);
-        break;
+      if (gamePage.diplomacyTab.racePanels[i].race.name === race.name) {
+        return i;
       }
     }
-    if (gamePage.activeTabId != origTab) {
-      gamePage.activeTabId = origTab; gamePage.render();
-    }
+    return null;
   }
+
+  var tabIdx = getTabIdx(race);
+
+  var origTab = gamePage.activeTabId;
+  if (tabIdx === null) {
+    if (gamePage.activeTabId === 'Trade') { return; }
+
+    gamePage.activeTabId = 'Trade'; gamePage.render();
+    tabIdx = getTabIdx(race);
+  }
+
+  if (tabIdx === null) { return; }
+  if (!gamePage.diplomacyTab.racePanels[tabIdx].tradeBtn.enabled) {
+    // we should only get here if the last time we were on the page the button was disabled, but now we should have enough
+    // to buy what we want. render the page so the button is enabled.
+    gamePage.activeTabId = 'Trade'; gamePage.render();
+  }
+
+  if (autoOptions.tradeOptions.tradeCount <= 1) {
+    gamePage.diplomacyTab.racePanels[tabIdx].tradeBtn.onClick();
+  } else {
+    gamePage.diplomacyTab.racePanels[tabIdx].tradeBtn.tradeMultiple(autoOptions.tradeOptions.tradeCount);
+  }
+
+  if (gamePage.activeTabId != origTab) {
+    gamePage.activeTabId = origTab; gamePage.render();
+  }
+
   if (autoOptions.tradeOptions.suppressTradeLog) {
     gamePage.msg = msgFunc;
   }
