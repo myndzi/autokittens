@@ -679,7 +679,7 @@ autoFestival = function () {
   if (gamePage.calendar.festivalDays || !autoOptions.autoFestival || !gamePage.science.get('drama').researched)
     return;
 
-  if (gamePage.villageTab.festivalBtn.hasResources()) {
+  if (gamePage.villageTab.festivalBtn && gamePage.villageTab.festivalBtn.hasResources()) {
     var origTab = gamePage.activeTabId;
     gamePage.activeTabId = gamePage.villageTab.tabId; gamePage.render();
 
