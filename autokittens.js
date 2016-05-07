@@ -15,10 +15,12 @@ function buildUI() {
   $('#headerLinks').append(' | <a onclick="rebuildOptionsUI();$(\'#autoOptions\').toggle();" href="#">AutoKittens</a> | <a onclick="rebuildCalculatorUI();$(\'#kittenCalcs\').toggle();" href="#">Calculators</a>');
 
   var uiContainer = document.createElement('div');
-  uiContainer.className = 'help';
+  uiContainer.className = 'dialog help';
   uiContainer.id = 'autoOptions';
   uiContainer.style.display = 'none';
   uiContainer.style.overflowY = 'scroll';
+  uiContainer.style.height = '360px';
+  uiContainer.style.marginTop = '-180px';
   $('#gamePageContainer').append(uiContainer);
 
   var calcContainer = document.createElement('div');
