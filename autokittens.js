@@ -24,10 +24,12 @@ function buildUI() {
   $('#gamePageContainer').append(uiContainer);
 
   var calcContainer = document.createElement('div');
-  calcContainer.className = 'help';
+  calcContainer.className = 'dialog help';
   calcContainer.id = 'kittenCalcs';
   calcContainer.style.display = 'none';
   calcContainer.style.overflowY = 'scroll';
+  uiContainer.style.height = '360px';
+  uiContainer.style.marginTop = '-180px';
   $('#gamePageContainer').append(calcContainer);
 }
 
